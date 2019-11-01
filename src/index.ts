@@ -12,6 +12,7 @@ export class Application extends Mali {
     ) {
         super(path, name, options);
         this.config = config;
+        this.settings = {};
     }
 
     get(name: string) {
