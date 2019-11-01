@@ -1,0 +1,31 @@
+{
+  "name": "mikudos-node-app",
+  "version": "1.0.0",
+  "description": "mikudos nodejs Application wrap mali with config",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --opts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikudos/mikudos-node-app.git"
+  },
+  "keywords": [
+    "mikudos",
+    "node",
+    "grpc"
+  ],
+  "author": "Mikudos contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikudos/mikudos-node-app/issues"
+  },
+  "homepage": "https://github.com/mikudos/mikudos-node-app#readme",
+  "dependencies": {
+    "config": "^3.2.4",
+    "mali": "^0.19.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
+}
