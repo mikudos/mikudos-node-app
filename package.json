@@ -1,6 +1,6 @@
 {
   "name": "mikudos-node-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mikudos nodejs Application wrap mali with config",
   "main": "lib/index.js",
   "scripts": {
@@ -33,5 +33,20 @@
     "mocha": "^6.2.2",
     "shx": "^0.3.2",
     "ts-mocha": "^6.0.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "lib",
+    "index.d.ts"
+  ],
+  "peerDependencies": {
+    "grpc": "^1.11.0",
+    "@grpc/proto-loader": "^0.3.0 || ^0.4.0 || ^0.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "index.d.ts"
 }
