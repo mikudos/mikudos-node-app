@@ -3,7 +3,7 @@ import config from 'config';
 
 export class Application extends Mali {
     public config: any;
-    public configure: Function;
+    public settings: any;
     public context: any;
     constructor(
         path: any,
@@ -12,8 +12,38 @@ export class Application extends Mali {
     ) {
         super(path, name, options);
         this.config = config;
-        this.configure = function(middle: Function): void {
-            middle(this);
-        };
+    }
+
+    get(name: string) {
+        return this.settings[name];
+    }
+
+    set(name: string, value: any) {
+        this.settings[name] = value;
+        return this;
+    }
+
+    disable(name: string) {
+        this.settings[name] = false;
+        return this;
+    }
+
+    disabled(name: string) {
+        return !this.settings[name];
+    }
+
+    enable(name: string) {
+        this.settings[name] = true;
+        return this;
+    }
+
+    enabled(name: string) {
+        return !!this.settings[name];
+    }
+
+    configure(fn: Function): Application {
+        fn.call(this, this);
+
+        return this;
     }
 }
