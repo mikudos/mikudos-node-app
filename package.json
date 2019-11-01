@@ -1,6 +1,6 @@
 {
   "name": "mikudos-node-app",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "mikudos nodejs Application wrap mali with config",
   "main": "lib/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/mikudos/mikudos-node-app#readme",
   "dependencies": {
     "config": "^3.2.4",
+    "js-yaml": "^3.13.1",
     "mali": "^0.19.0"
   },
   "devDependencies": {
