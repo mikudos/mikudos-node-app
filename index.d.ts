@@ -1,3 +1,3 @@
 import * as app from './src';
 
-export = app;
+export default app;

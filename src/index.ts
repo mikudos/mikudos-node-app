@@ -1,7 +1,7 @@
 import Mali from 'mali';
 import config from 'config';
 
-export class Application extends Mali {
+export default class Application extends Mali {
     public config: any;
     public settings: any;
     public context: any;
