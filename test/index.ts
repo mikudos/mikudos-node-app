@@ -1,4 +1,4 @@
-import Application from '..';
+import { Application } from '../src';
 import path from 'path';
 
 const PROTO_PATH = path.resolve(__dirname, './helloworld.proto');
