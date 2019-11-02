@@ -1,6 +1,8 @@
 import Mali from 'mali';
 import config from 'config';
 
+declare namespace mikudos {}
+
 export class Application extends Mali {
     public config: any;
     public settings: any;
@@ -48,3 +50,4 @@ export class Application extends Mali {
         return this;
     }
 }
+export default mikudos;
