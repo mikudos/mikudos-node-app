@@ -1,7 +1,11 @@
 import Mali from 'mali';
 import config from 'config';
 
-declare namespace mikudos {}
+declare namespace mikudos {
+    interface ConfigFunc {
+        (app: Application): void;
+    }
+}
 
 export class Application extends Mali {
     public config: any;
@@ -44,7 +48,7 @@ export class Application extends Mali {
         return !!this.settings[name];
     }
 
-    configure(fn: Function): Application {
+    configure(fn: mikudos.ConfigFunc): Application {
         fn.call(this, this);
 
         return this;
