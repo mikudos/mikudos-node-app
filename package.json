@@ -1,6 +1,6 @@
 {
   "name": "mikudos-node-app",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "mikudos nodejs Application wrap mali with config",
   "main": "lib/index.js",
   "scripts": {
