@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Mali from 'mali';
 import config from 'config';
 import { concat, get } from 'lodash';
@@ -20,7 +21,7 @@ export class Application extends Mali {
     ) {
         super(path, name, options);
         this.config = config;
-        this.settings = {};
+        this.settings = _.merge({}, config);
     }
 
     get(name: string) {
