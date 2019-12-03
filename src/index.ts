@@ -12,6 +12,7 @@ export class Application extends Mali {
     public config: any;
     public settings: any;
     public context: any;
+    public services: { [key: string]: any } = {};
     constructor(
         path: any,
         name?: string | ReadonlyArray<string>,
@@ -56,7 +57,7 @@ export class Application extends Mali {
     }
 
     register(name: string, service: any, hooks: any = {}) {
-        this.set(`services.${name}`, service);
+        this.services[name] = service;
         const methodMap = get(service, 'methodMap', {});
         for (const key in methodMap) {
             this.use(
