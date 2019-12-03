@@ -1,5 +1,6 @@
 import Mali from 'mali';
 import config from 'config';
+import { concat, get } from 'lodash';
 
 declare namespace mikudos {
     interface ConfigFunc {
@@ -52,6 +53,25 @@ export class Application extends Mali {
         fn.call(this, this);
 
         return this;
+    }
+
+    register(name: string, service: any, hooks: any = {}) {
+        this.set(`services.${name}`, service);
+        const methodMap = get(service, 'methodMap', {});
+        for (const key in methodMap) {
+            this.use(
+                key,
+                ...concat(
+                    get(hooks, 'before.all', []),
+                    get(hooks, `before.${methodMap[key]}`, [])
+                ),
+                async (ctx: any) => await service[methodMap[key]](ctx),
+                ...concat(
+                    get(hooks, 'after.all', []),
+                    get(hooks, `after.${methodMap[key]}`, [])
+                )
+            );
+        }
     }
 }
 export default mikudos;
