@@ -2,17 +2,11 @@ import _ from 'lodash';
 import Mali from 'mali';
 import config from 'config';
 import { concat, get } from 'lodash';
+import { Service } from './service';
 
-export declare namespace mikudos {
+declare namespace mikudos {
     interface ConfigFunc {
         (app: Application): void;
-    }
-
-    interface Service {
-        package?: string;
-        service?: string;
-        methodMap: { [key: string]: string };
-        handlers: any;
     }
 }
 
@@ -64,7 +58,7 @@ export class Application extends Mali {
         return this;
     }
 
-    register(name: string, service: mikudos.Service, hooks: any = {}) {
+    register(name: string, service: Service, hooks: any = {}) {
         this.services[name] = service;
         const methodMap = get(service, 'methodMap');
         for (const key in methodMap) {
