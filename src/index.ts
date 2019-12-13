@@ -3,9 +3,16 @@ import Mali from 'mali';
 import config from 'config';
 import { concat, get } from 'lodash';
 
-declare namespace mikudos {
+export declare namespace mikudos {
     interface ConfigFunc {
         (app: Application): void;
+    }
+
+    interface Service {
+        package?: string;
+        service?: string;
+        methodMap: { [key: string]: string };
+        handlers: any;
     }
 }
 
@@ -57,20 +64,27 @@ export class Application extends Mali {
         return this;
     }
 
-    register(name: string, service: any, hooks: any = {}) {
+    register(name: string, service: mikudos.Service, hooks: any = {}) {
         this.services[name] = service;
-        const methodMap = get(service, 'methodMap', {});
+        const methodMap = get(service, 'methodMap');
         for (const key in methodMap) {
+            let keyArr = [key];
+            service.service &&
+                keyArr.unshift(
+                    `${service.package ? service.package + '.' : ''}${
+                        service.service
+                    }`
+                );
             this.use(
-                key,
+                ...keyArr,
                 ...concat(
                     get(hooks, 'before.all', []),
-                    get(hooks, `before.${methodMap[key]}`, [])
+                    get(hooks, `before.${key}`, [])
                 ),
-                async (ctx: any) => await service[methodMap[key]](ctx),
+                async (ctx: any) => await service.handlers[methodMap[key]](ctx),
                 ...concat(
                     get(hooks, 'after.all', []),
-                    get(hooks, `after.${methodMap[key]}`, [])
+                    get(hooks, `after.${key}`, [])
                 )
             );
         }
