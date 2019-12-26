@@ -4,7 +4,7 @@
     "description": "mikudos nodejs Application wrap mali with config",
     "main": "lib/index.js",
     "scripts": {
-        "test": "mocha --opts",
+        "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",
         "compile": "shx rm -rf lib/ && tsc"
     },
     "repository": {
@@ -37,6 +37,7 @@
         "@types/lodash": "^4.14.149",
         "@types/node": "^12.12.3",
         "grpc": "^1.24.2",
+        "husky": "^3.1.0",
         "mocha": "^6.2.2",
         "shx": "^0.3.2",
         "ts-mocha": "^6.0.0",
@@ -55,6 +56,12 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm test",
+            "pre-push": "npm test"
+        }
     },
     "types": "index.d.ts"
 }
