@@ -5,7 +5,8 @@
     "main": "lib/index.js",
     "scripts": {
         "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",
-        "compile": "shx rm -rf lib/ && tsc"
+        "compile": "shx rm -rf lib/ && tsc",
+        "index": "ts-node src/common/index.ts"
     },
     "repository": {
         "type": "git",
@@ -30,7 +31,9 @@
         "config": "^3.2.4",
         "js-yaml": "^3.13.1",
         "lodash": "^4.17.15",
-        "mali": "^0.19.0"
+        "mali": "^0.19.0",
+        "reflect-metadata": "^0.1.13",
+        "ts-node": "^8.5.4"
     },
     "devDependencies": {
         "@types/config": "0.0.35",

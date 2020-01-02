@@ -58,29 +58,59 @@ export class Application extends Mali {
         return this;
     }
 
-    register(name: string, service: Service, hooks: any = {}) {
-        this.services[name] = service;
-        const methodMap = get(service, 'methodMap');
-        for (const key in methodMap) {
-            let keyArr = [key];
-            service.service &&
-                keyArr.unshift(
-                    `${service.package ? service.package + '.' : ''}${
-                        service.service
-                    }`
-                );
-            this.use(
-                ...keyArr,
-                ...concat(
-                    get(hooks, 'before.all', []),
-                    get(hooks, `before.${key}`, [])
-                ),
-                async (ctx: any) => await service.handlers[methodMap[key]](ctx),
-                ...concat(
-                    get(hooks, 'after.all', []),
-                    get(hooks, `after.${key}`, [])
-                )
-            );
+    register(serviceClass: any) {
+        const pack = Reflect.getMetadata('package', serviceClass);
+        const name = Reflect.getMetadata('name', serviceClass);
+        const serviceBefores = Reflect.getMetadata('befores', serviceClass);
+        const serviceAfters = Reflect.getMetadata('afters', serviceClass);
+        if (serviceBefores) {
+            this.use(`${pack}.${name}`, ...serviceBefores);
         }
+        const service = new serviceClass();
+        this.services[name] = service;
+        for (const key in service) {
+            if (service.hasOwnProperty(key)) {
+                const method = service[key];
+                if (!Reflect.hasMetadata('method', method)) continue;
+                let methodName = Reflect.getMetadata('method', method);
+                let befores = Reflect.getMetadata('before', method);
+                let afters = Reflect.getMetadata('after', method);
+                let keyArr = (methodName as string).split('.');
+                if (keyArr.length === 1) {
+                    name && keyArr.unshift(name);
+                    pack && keyArr.unshift(pack);
+                }
+
+                this.use(
+                    ...keyArr,
+                    ...(befores || []),
+                    async (ctx: any) => await method(ctx),
+                    ...(afters || []),
+                    ...(serviceAfters || [])
+                );
+            }
+        }
+        // const methodMap = get(service, 'methodMap');
+        // for (const key in methodMap) {
+        //     let keyArr = [key];
+        //     service.service &&
+        //         keyArr.unshift(
+        //             `${service.package ? service.package + '.' : ''}${
+        //                 service.service
+        //             }`
+        //         );
+        //     this.use(
+        //         ...keyArr,
+        //         ...concat(
+        //             get(hooks, 'before.all', []),
+        //             get(hooks, `before.${key}`, [])
+        //         ),
+        //         async (ctx: any) => await service.handlers[methodMap[key]](ctx),
+        //         ...concat(
+        //             get(hooks, 'after.all', []),
+        //             get(hooks, `after.${key}`, [])
+        //         )
+        //     );
+        // }
     }
 }
