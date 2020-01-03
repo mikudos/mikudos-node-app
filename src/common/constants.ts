@@ -4,5 +4,7 @@ export const METADATA = {
     CONTROLLERS: 'controllers',
     EXPORTS: 'exports'
 };
+export const HOOK_BEFORE = 'before';
+export const HOOK_AFTER = 'after';
 
 export const METHOD_METADATA = 'method';
