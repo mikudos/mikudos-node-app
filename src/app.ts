@@ -61,8 +61,8 @@ export class Application extends Mali {
     register(serviceClass: any) {
         const pack = Reflect.getMetadata('package', serviceClass);
         const name = Reflect.getMetadata('name', serviceClass);
-        const serviceBefores = Reflect.getMetadata('befores', serviceClass);
-        const serviceAfters = Reflect.getMetadata('afters', serviceClass);
+        const serviceBefores = Reflect.getMetadata('before', serviceClass);
+        const serviceAfters = Reflect.getMetadata('after', serviceClass);
         if (serviceBefores) {
             this.use(`${pack}.${name}`, ...serviceBefores);
         }
