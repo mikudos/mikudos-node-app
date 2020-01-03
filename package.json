@@ -1,12 +1,11 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.0.16",
+    "version": "1.1.0",
     "description": "mikudos nodejs Application wrap mali with config",
     "main": "lib/index.js",
     "scripts": {
         "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",
-        "compile": "shx rm -rf lib/ && tsc",
-        "index": "ts-node src/common/index.ts"
+        "compile": "shx rm -rf lib/ && tsc"
     },
     "repository": {
         "type": "git",
@@ -32,8 +31,7 @@
         "js-yaml": "^3.13.1",
         "lodash": "^4.17.15",
         "mali": "^0.19.0",
-        "reflect-metadata": "^0.1.13",
-        "ts-node": "^8.5.4"
+        "reflect-metadata": "^0.1.13"
     },
     "devDependencies": {
         "@types/config": "0.0.35",
@@ -44,7 +42,8 @@
         "mocha": "^6.2.2",
         "shx": "^0.3.2",
         "ts-mocha": "^6.0.0",
-        "typescript": "^3.5.3"
+        "typescript": "^3.5.3",
+        "ts-node": "^8.5.4"
     },
     "directories": {
         "test": "test"
