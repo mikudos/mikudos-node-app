@@ -1,6 +1,10 @@
 import { InvalidServiceConfigException } from './exceptions/invalid-service-config.exception';
 
-const metadataKeys = ['name', 'packageName'];
+const metadataKeys = ['name', 'package'];
+interface MetaData {
+    name: string;
+    package?: string;
+}
 
 const validateKeys = (keys: string[]) => {
     const validateKey = (key: string) => {
@@ -12,7 +16,7 @@ const validateKeys = (keys: string[]) => {
     keys.forEach(validateKey);
 };
 
-export function Service(metadata: any): ClassDecorator {
+export function Service(metadata: MetaData): ClassDecorator {
     const propsKeys = Object.keys(metadata);
     validateKeys(propsKeys);
 
