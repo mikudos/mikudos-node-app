@@ -71,22 +71,25 @@ export class Application extends Mali {
             if (service.hasOwnProperty(key)) {
                 const method = service[key];
                 if (!Reflect.hasMetadata('method', method)) continue;
-                let methodName = Reflect.getMetadata('method', method);
+                let param = Reflect.getMetadata('method', method);
                 let befores = Reflect.getMetadata('before', method);
                 let afters = Reflect.getMetadata('after', method);
-                let keyArr = (methodName as string).split('.');
-                if (keyArr.length === 1) {
-                    name && keyArr.unshift(name);
-                    pack && keyArr.unshift(pack);
-                }
+                let methodList = param.methodList;
+                methodList.forEach((methodName: string) => {
+                    let keyArr = (methodName as string).split('.');
+                    if (keyArr.length === 1) {
+                        name && keyArr.unshift(name);
+                        pack && keyArr.unshift(pack);
+                    }
 
-                this.use(
-                    ...keyArr,
-                    ...(befores || []),
-                    async (ctx: any) => await method(ctx),
-                    ...(afters || []),
-                    ...(serviceAfters || [])
-                );
+                    this.use(
+                        ...keyArr,
+                        ...(befores || []),
+                        async (ctx: any) => await method(ctx),
+                        ...(afters || []),
+                        ...(serviceAfters || [])
+                    );
+                });
             }
         }
     }
