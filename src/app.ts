@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import Mali from 'mali';
 import config from 'config';
-import { concat, get } from 'lodash';
 
 export declare namespace mikudos {
     interface ConfigFunc {
@@ -63,34 +62,39 @@ export class Application extends Mali {
         const serviceBefores = Reflect.getMetadata('before', serviceClass);
         const serviceAfters = Reflect.getMetadata('after', serviceClass);
         if (serviceBefores) {
-            this.use(`${pack}.${name}`, ...serviceBefores);
+            this.use(`${pack ? pack + '.' : ''}${name}`, ...serviceBefores);
         }
         const service = new serviceClass();
         this.services[name] = service;
-        for (const key in service) {
-            if (service.hasOwnProperty(key)) {
-                const method = service[key];
-                if (!Reflect.hasMetadata('method', method)) continue;
-                let param = Reflect.getMetadata('method', method);
-                let befores = Reflect.getMetadata('before', method);
-                let afters = Reflect.getMetadata('after', method);
-                let methodList = param.methodList;
-                methodList.forEach((methodName: string) => {
-                    let keyArr = (methodName as string).split('.');
-                    if (keyArr.length === 1) {
-                        name && keyArr.unshift(name);
-                        pack && keyArr.unshift(pack);
-                    }
+        let properties = Object.getOwnPropertyNames(
+            Object.getPrototypeOf(service)
+        );
+        for (const key of properties) {
+            const method = service[key];
+            if (!Reflect.hasMetadata('method', method)) continue;
+            let param = Reflect.getMetadata('method', method);
+            let befores = Reflect.getMetadata('before', method);
+            let afters = Reflect.getMetadata('after', method);
+            let methodList = param.methodList;
+            methodList.forEach((methodName: string) => {
+                let keyArr = (methodName as string).split('.');
+                if (keyArr.length === 1) {
+                    let serviceName: string = name;
+                    pack && (serviceName = `${pack}.${name}`);
+                    serviceName && keyArr.unshift(serviceName);
+                } else {
+                    let methName = keyArr.pop();
+                    keyArr = [keyArr.join('.'), methName as string];
+                }
 
-                    this.use(
-                        ...keyArr,
-                        ...(befores || []),
-                        async (ctx: any) => await method(ctx),
-                        ...(afters || []),
-                        ...(serviceAfters || [])
-                    );
-                });
-            }
+                this.use(
+                    ...keyArr,
+                    ...(befores || []),
+                    async (ctx: any) => await method(ctx),
+                    ...(afters || []),
+                    ...(serviceAfters || [])
+                );
+            });
         }
     }
 }
