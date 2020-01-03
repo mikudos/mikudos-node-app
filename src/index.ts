@@ -1,3 +1,3 @@
 import 'reflect-metadata';
 export { mikudos, Application } from './app';
-export { Service } from './service';
+export { Service, Method, HookMethod, HookService } from './common';

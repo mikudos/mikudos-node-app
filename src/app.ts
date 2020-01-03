@@ -2,7 +2,6 @@ import _ from 'lodash';
 import Mali from 'mali';
 import config from 'config';
 import { concat, get } from 'lodash';
-import { Service } from './service';
 
 export declare namespace mikudos {
     interface ConfigFunc {
@@ -90,27 +89,5 @@ export class Application extends Mali {
                 );
             }
         }
-        // const methodMap = get(service, 'methodMap');
-        // for (const key in methodMap) {
-        //     let keyArr = [key];
-        //     service.service &&
-        //         keyArr.unshift(
-        //             `${service.package ? service.package + '.' : ''}${
-        //                 service.service
-        //             }`
-        //         );
-        //     this.use(
-        //         ...keyArr,
-        //         ...concat(
-        //             get(hooks, 'before.all', []),
-        //             get(hooks, `before.${key}`, [])
-        //         ),
-        //         async (ctx: any) => await service.handlers[methodMap[key]](ctx),
-        //         ...concat(
-        //             get(hooks, 'after.all', []),
-        //             get(hooks, `after.${key}`, [])
-        //         )
-        //     );
-        // }
     }
 }
