@@ -3,6 +3,7 @@ import { InvalidServiceConfigException } from './exceptions/invalid-service-conf
 const metadataKeys = ['name', 'package'];
 interface MetaData {
     name: string;
+    serviceName?: string;
     package?: string;
 }
 
