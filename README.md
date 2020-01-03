@@ -12,6 +12,10 @@ mikudos-node-app is one Building block of Mikudos
 
 The Application self is extended from Mali's Application
 
+## Example
+
+[A Example implementation of mikudos-node-app in typescript can be found as the linked repository.](https://github.com/mikudos/mikudos-service-ts)
+
 ## Usage
 
 Import the mikudos-socketio-server module:
@@ -25,9 +29,35 @@ const PROTO_PATH = path.resolve(
 );
 
 const app: Application = new Application(PROTO_PATH);
+
+// write a service to handle grpc methods
+import { Service, Method, HookMethod, HookService } from 'mikudos-node-app';
+import { hook1, hook2 } from './greeter_service.hooks';
+/**
+ * You can find a systematic description for the use case of middleware at: https://mali.js.org/api/#mali-%E2%87%90-emitter
+ **/
+
+@Service({ name: 'GreeterService', serviceName: 'GreeterService' }) // register the service with name to add the service to app.services[name] at the same time
+@HookService('before', hook1) // add one service level before hook
+@HookService('after', hook1) // add one service level after hook
+export default class {
+    constructor() {}
+
+    @Method('SayHello') // register method to a grpc method
+    @Method('SayHi') // register the same method to an other grpc method
+    @HookMethod('before', hook2) // register a method level middleware as before hook
+    @HookMethod('before', hook2) // register an other method level middleware as before hook
+    @HookMethod('after', hook2) // register a method level middleware as after hook
+    async SayHello(ctx: any) {
+        // the handle method self
+        const app = ctx.app;
+        ctx.res = { message: 'Hello '.concat(ctx.req.name) };
+    }
+}
 ```
 
 ```js
+// for js implementation should use the version 1.0.16 of mikudos-node-app
 var { Application } = require('mikudos-node-app');
 
 const PROTO_PATH = path.resolve(
