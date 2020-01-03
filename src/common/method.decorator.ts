@@ -5,8 +5,6 @@ const metadataKeys = [METHOD_METADATA];
 
 export const MethodMapping = (param: { method: string }): MethodDecorator => {
     return (target, key, descriptor: PropertyDescriptor) => {
-        console.log('target:', target);
-        console.log('TCL: key', key);
         Reflect.defineMetadata(METHOD_METADATA, param, descriptor.value);
         return descriptor;
     };
