@@ -1,5 +1,4 @@
 export class Service {
-    name: string = '';
     package?: string;
     constructor(
         public handlers: any,
