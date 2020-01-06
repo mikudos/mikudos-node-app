@@ -16,13 +16,19 @@ import { App } from './params';
 
 @Service({ name: 'test', serviceName: 'testService' })
 class Test {
-    constructor(@App test: any, config: {} = {}) {
+    constructor(@App() test: any) {
         console.log('test property:', test);
     }
 }
 
 // console.log('TCL: Test', Test.constructor.arguments);
-let test = Reflect.getMetadata('App', Test);
-if (typeof test == 'number') console.log('TCL: App', test);
-let t = new Test('a');
-console.log('TCL: t', t.constructor.arguments);
+let len = Reflect.getMetadataKeys(Test);
+console.log('TCL: len', len);
+let test = Reflect.getMetadata('param_app', Test);
+let params = [];
+if (typeof test == 'number') {
+    console.log('TCL: App', test);
+    params[0] = { aaa: 'bbbb' };
+}
+// let t = new Test(...params);
+// console.log('TCL: t', t.constructor.arguments);
