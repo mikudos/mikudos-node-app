@@ -69,7 +69,9 @@ export class Application extends Mali {
                 ...serviceBefores
             );
         }
-        const service = new serviceClass();
+        const service = new serviceClass(
+            ...this.retriveParamsForService(serviceClass)
+        );
         this.services[name] = service;
         let properties = Object.getOwnPropertyNames(
             Object.getPrototypeOf(service)
@@ -101,5 +103,26 @@ export class Application extends Mali {
                 );
             });
         }
+    }
+
+    private retriveParamsForService(serviceClass: Object): any[] {
+        let params: any[] = [];
+        let keys = Reflect.getMetadataKeys(serviceClass.constructor, 'index');
+        keys.map(value => {
+            let index = Reflect.getMetadata(
+                value,
+                serviceClass.constructor,
+                'index'
+            );
+            let param = Reflect.getMetadata(
+                value,
+                serviceClass.constructor,
+                'property'
+            );
+            if (value === 'App') param = this;
+            typeof index == 'number' && (params[index] = param);
+            console.log('TCL: index', params);
+        });
+        return params;
     }
 }
