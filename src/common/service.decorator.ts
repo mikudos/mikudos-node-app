@@ -1,6 +1,7 @@
 import { InvalidServiceConfigException } from './exceptions/invalid-service-config.exception';
+import { METADATA } from './constants';
 
-const metadataKeys = ['name', 'package'];
+const metadataKeys = [METADATA.NAME, METADATA.SERVICE_NAME, METADATA.PACKAGE];
 interface MetaData {
     name: string;
     serviceName?: string;

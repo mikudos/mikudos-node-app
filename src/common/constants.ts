@@ -1,8 +1,7 @@
 export const METADATA = {
-    IMPORTS: 'imports',
-    PROVIDERS: 'providers',
-    CONTROLLERS: 'controllers',
-    EXPORTS: 'exports'
+    NAME: 'name',
+    SERVICE_NAME: 'serviceName',
+    PACKAGE: 'package'
 };
 export const HOOK_BEFORE = 'before';
 export const HOOK_AFTER = 'after';
