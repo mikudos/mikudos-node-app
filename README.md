@@ -31,17 +31,32 @@ const PROTO_PATH = path.resolve(
 const app: Application = new Application(PROTO_PATH);
 
 // write a service to handle grpc methods
-import { Service, Method, HookMethod, HookService } from 'mikudos-node-app';
+import {
+    Service,
+    Method,
+    HookMethod,
+    HookService,
+    App,
+    Customer
+} from 'mikudos-node-app';
 import { hook1, hook2 } from './greeter_service.hooks';
 /**
  * You can find a systematic description for the use case of middleware at: https://mali.js.org/api/#mali-%E2%87%90-emitter
  **/
+async function hook1(ctx: any, next: Function) {
+    // TransactionManager.commitTransaction
+    console.log('GreeterService service hook');
+    await next();
+}
 
 @Service({ name: 'GreeterService', serviceName: 'GreeterService' }) // register the service with name to add the service to app.services[name] at the same time
 @HookService('before', hook1) // add one service level before hook
 @HookService('after', hook1) // add one service level after hook
-export default class {
-    constructor() {}
+export class Greeter {
+    constructor(
+        @App() private app: Application,
+        @Customer('test string') private test: any
+    ) {}
 
     @Method('SayHello') // register method to a grpc method
     @Method('SayHi') // register the same method to an other grpc method
@@ -54,6 +69,8 @@ export default class {
         ctx.res = { message: 'Hello '.concat(ctx.req.name) };
     }
 }
+
+app.register(Greeter);
 ```
 
 ```js

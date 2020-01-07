@@ -69,7 +69,9 @@ export class Application extends Mali {
                 ...serviceBefores
             );
         }
-        const service = new serviceClass();
+        const service = new serviceClass(
+            ...this.retriveParamsForService(serviceClass)
+        );
         this.services[name] = service;
         let properties = Object.getOwnPropertyNames(
             Object.getPrototypeOf(service)
@@ -84,8 +86,7 @@ export class Application extends Mali {
             methodList.forEach((methodName: string) => {
                 let keyArr = (methodName as string).split('.');
                 if (keyArr.length === 1) {
-                    let serviceName: string = name;
-                    pack && (serviceName = `${pack}.${name}`);
+                    pack && (serviceName = `${pack}.${serviceName}`);
                     serviceName && keyArr.unshift(serviceName);
                 } else {
                     let methName = keyArr.pop();
@@ -101,5 +102,17 @@ export class Application extends Mali {
                 );
             });
         }
+    }
+
+    private retriveParamsForService(serviceClass: any): any[] {
+        let params: any[] = [];
+        let keys = Reflect.getMetadataKeys(serviceClass.prototype);
+        for (const value of keys) {
+            const metadata = Reflect.getMetadata(value, serviceClass.prototype);
+            const { index, param } = metadata;
+            if (value == 'App') params[index] = this;
+            else params[index] = param;
+        }
+        return params;
     }
 }

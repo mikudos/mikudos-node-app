@@ -1,4 +1,6 @@
-export { Service } from './service.decorator';
-export { Method } from './method.decorator';
-export { HookMethod } from './method.hook.decorator';
-export { HookService } from './service.hook.decorator';
+export * from './service.decorator';
+export * from './method.decorator';
+export * from './method.hook.decorator';
+export * from './service.hook.decorator';
+
+export * from './params';
