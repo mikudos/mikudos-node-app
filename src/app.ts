@@ -113,13 +113,13 @@ export class Application extends Mali {
                 serviceClass.constructor,
                 'index'
             );
-            let param = Reflect.getMetadata(
-                value,
-                serviceClass.constructor,
-                'property'
-            );
-            if (value === 'App') param = this;
-            typeof index == 'number' && (params[index] = param);
+            if (value == 'App') params[index] = this;
+            else
+                params[index] = Reflect.getMetadata(
+                    value,
+                    serviceClass.constructor,
+                    'property'
+                );
         }
         return params;
     }
