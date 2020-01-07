@@ -108,7 +108,7 @@ export class Application extends Mali {
     private retriveParamsForService(serviceClass: Object): any[] {
         let params: any[] = [];
         let keys = Reflect.getMetadataKeys(serviceClass.constructor, 'index');
-        keys.map(value => {
+        for (const value of keys) {
             let index = Reflect.getMetadata(
                 value,
                 serviceClass.constructor,
@@ -121,7 +121,7 @@ export class Application extends Mali {
             );
             if (value === 'App') param = this;
             typeof index == 'number' && (params[index] = param);
-        });
+        }
         return params;
     }
 }
