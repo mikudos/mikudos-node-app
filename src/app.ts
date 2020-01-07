@@ -86,8 +86,7 @@ export class Application extends Mali {
             methodList.forEach((methodName: string) => {
                 let keyArr = (methodName as string).split('.');
                 if (keyArr.length === 1) {
-                    let serviceName: string = name;
-                    pack && (serviceName = `${pack}.${name}`);
+                    pack && (serviceName = `${pack}.${serviceName}`);
                     serviceName && keyArr.unshift(serviceName);
                 } else {
                     let methName = keyArr.pop();
