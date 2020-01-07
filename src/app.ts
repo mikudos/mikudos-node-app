@@ -121,7 +121,6 @@ export class Application extends Mali {
             );
             if (value === 'App') param = this;
             typeof index == 'number' && (params[index] = param);
-            console.log('TCL: index', params);
         });
         return params;
     }

@@ -1,11 +1,10 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "description": "mikudos nodejs Application wrap mali with config",
     "main": "lib/index.js",
     "scripts": {
         "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",
-        "index": "ts-node src/common/index.ts",
         "compile": "shx rm -rf lib/ && tsc"
     },
     "repository": {
