@@ -14,4 +14,13 @@ class ServiceClass {
     }
 }
 
+@Service({ name: 'test', serviceName: 'testService' })
+class ServiceTempClass {
+    constructor(@App() app: any, @Customer({ test: 'objectttt' }) prop: any) {
+        console.log('TCL: ServiceTempClass -> constructor -> app', app);
+        console.log('TCL: ServiceTempClass -> constructor -> prop', prop);
+    }
+}
+
 app.register(ServiceClass);
+app.register(ServiceTempClass);
