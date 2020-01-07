@@ -6,7 +6,7 @@ export function Customer(param: any) {
         propertyKey: string | symbol,
         parameterIndex: number
     ) => {
-        let len = Reflect.getMetadataKeys(target.constructor);
+        let len = Reflect.getMetadataKeys(target.constructor).length;
         createParamDecorator(`Customer_${len}`, parameterIndex, target, param);
     };
 }
