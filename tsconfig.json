@@ -8,5 +8,7 @@
         "strict": true,
         "esModuleInterop": true
     },
-    "exclude": []
+    "exclude": [
+        "test"
+    ]
 }

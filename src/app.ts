@@ -104,22 +104,14 @@ export class Application extends Mali {
         }
     }
 
-    private retriveParamsForService(serviceClass: Object): any[] {
+    private retriveParamsForService(serviceClass: any): any[] {
         let params: any[] = [];
-        let keys = Reflect.getMetadataKeys(serviceClass.constructor, 'index');
+        let keys = Reflect.getMetadataKeys(serviceClass.prototype);
         for (const value of keys) {
-            let index = Reflect.getMetadata(
-                value,
-                serviceClass.constructor,
-                'index'
-            );
+            const metadata = Reflect.getMetadata(value, serviceClass.prototype);
+            const { index, param } = metadata;
             if (value == 'App') params[index] = this;
-            else
-                params[index] = Reflect.getMetadata(
-                    value,
-                    serviceClass.constructor,
-                    'property'
-                );
+            else params[index] = param;
         }
         return params;
     }

@@ -1,10 +1,8 @@
 export function createParamDecorator(
     name: string,
     index: number,
-    target: Object,
+    target: any,
     param?: any
 ) {
-    Reflect.defineMetadata(name, index, target.constructor, 'index');
-    param &&
-        Reflect.defineMetadata(name, param, target.constructor, 'property');
+    Reflect.defineMetadata(name, { index, param }, target.prototype);
 }
