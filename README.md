@@ -18,7 +18,7 @@ The Application self is extended from Mali's Application
 
 ## Usage
 
-Import the mikudos-socketio-server module:
+Import the mikudos-node-app module:
 
 ```ts
 import { Application } from 'mikudos-node-app';
