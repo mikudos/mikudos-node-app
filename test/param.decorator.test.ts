@@ -8,10 +8,7 @@ const app: Application = new Application(PROTO_PATH);
 
 @Service({ name: 'test', serviceName: 'testService' })
 class Test {
-    constructor(@Customer({ test: 'objectttt' }) prop: any, @App() app: any) {
-        console.log('TCL: Test -> constructor -> app', app);
-        console.log('TCL: Test -> constructor -> prop', prop);
-    }
+    constructor(@Customer({ test: 'objectttt' }) prop: any, @App() app: any) {}
 }
 
 // console.log('TCL: Test', Test.constructor.arguments);
@@ -23,10 +20,7 @@ let customerIndex = Reflect.getMetadata(
     Test.constructor,
     'index'
 );
-console.log('TCL: customerIndex', customerIndex);
 let appIndex = Reflect.getMetadata('App', Test.constructor, 'index');
-console.log('TCL: appIndex', appIndex);
-console.log('TCL: keys', keys);
 let params = [];
 for (const value of keys) {
     let index = Reflect.getMetadata(value, Test.constructor, 'index');
