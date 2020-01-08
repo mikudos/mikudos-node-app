@@ -10,10 +10,7 @@ const app: Application = new Application(PROTO_PATH);
 
 @Service({ name: 'test', serviceName: 'testService' })
 class ServiceClass {
-    constructor(@Customer({ test: 'objectttt' }) prop: any, @App() app: any) {
-        console.log('TCL: ServiceClass -> constructor -> app', app);
-        console.log('TCL: ServiceClass -> constructor -> prop', prop);
-    }
+    constructor(@Customer({ test: 'objectttt' }) prop: any, @App() app: any) {}
 }
 
 @Service({ name: 'test111', serviceName: 'testService' })
@@ -21,17 +18,12 @@ class ServiceTempClass {
     constructor(
         @App() app: any,
         @Customer({ test111: 'objectttt' }) prop: any
-    ) {
-        console.log('TCL: ServiceTempClass -> constructor -> app', app);
-        console.log('TCL: ServiceTempClass -> constructor -> prop', prop);
-    }
+    ) {}
 }
 
 @Service({ name: 'test11', serviceName: 'testService' })
 class ServiceTemp1Class {
-    constructor(@App() app: any) {
-        console.log('TCL: ServiceTempClass -> constructor -> app', app);
-    }
+    constructor(@App() app: any) {}
 }
 
 app.register(ServiceClass);
