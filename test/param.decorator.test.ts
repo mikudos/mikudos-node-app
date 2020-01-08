@@ -13,7 +13,6 @@ class Test {
 
 // console.log('TCL: Test', Test.constructor.arguments);
 let len = Reflect.getMetadataKeys(Test);
-console.log('TCL: len', len);
 let keys = Reflect.getMetadataKeys(Test.constructor, 'index');
 let customerIndex = Reflect.getMetadata(
     'Customer_0',
