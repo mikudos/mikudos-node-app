@@ -96,7 +96,7 @@ export class Application extends Mali {
                 this.use(
                     ...keyArr,
                     ...(befores || []),
-                    async (ctx: any) => await method(ctx),
+                    async (ctx: any) => await service[key](ctx),
                     ...(afters || []),
                     ...(serviceAfters || [])
                 );
