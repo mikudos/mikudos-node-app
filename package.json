@@ -1,7 +1,7 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.1.14",
-    "description": "mikudos nodejs Application wrap mali with config",
+    "version": "1.1.16",
+    "description": "gRPC microservice framework for fast implementation",
     "main": "lib/index.js",
     "scripts": {
         "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",

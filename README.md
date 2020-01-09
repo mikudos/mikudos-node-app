@@ -18,7 +18,7 @@ The Application self is extended from Mali's Application
 
 ## Usage
 
-Import the mikudos-socketio-server module:
+Import the mikudos-node-app module:
 
 ```ts
 import { Application } from 'mikudos-node-app';
@@ -39,13 +39,17 @@ import {
     App,
     Customer
 } from 'mikudos-node-app';
-import { hook1, hook2 } from './greeter_service.hooks';
 /**
  * You can find a systematic description for the use case of middleware at: https://mali.js.org/api/#mali-%E2%87%90-emitter
  **/
 async function hook1(ctx: any, next: Function) {
     // TransactionManager.commitTransaction
     console.log('GreeterService service hook');
+    await next();
+}
+async function hook2(ctx: any, next: Function) {
+    // TransactionManager.commitTransaction
+    console.log('SayHello method hook');
     await next();
 }
 
