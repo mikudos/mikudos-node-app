@@ -9,7 +9,6 @@ export declare namespace mikudos {
 }
 
 export class Application extends Mali {
-    public config: any;
     public settings: any;
     public context: any;
     public services: { [key: string]: any } = {};
@@ -19,7 +18,6 @@ export class Application extends Mali {
         options?: any
     ) {
         super(path, name, options);
-        this.config = config;
         this.settings = _.merge({}, config);
     }
 
