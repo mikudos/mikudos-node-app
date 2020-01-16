@@ -1,11 +1,12 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.1.19",
+    "version": "1.1.20",
     "description": "gRPC microservice framework for fast implementation",
     "main": "lib/index.js",
     "scripts": {
         "test": "ts-mocha \"test/**/*.ts\" --recursive --exit",
-        "compile": "shx rm -rf lib/ && tsc"
+        "compile": "shx rm -rf lib/ && tsc",
+        "postinstall": "node ./postinstall.js"
     },
     "repository": {
         "type": "git",
