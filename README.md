@@ -67,10 +67,11 @@ export class Greeter {
     @HookMethod('before', hook2) // register a method level middleware as before hook
     @HookMethod('before', hook2) // register an other method level middleware as before hook
     @HookMethod('after', hook2) // register a method level middleware as after hook
-    async SayHello(ctx: any) {
+    async SayHello(ctx: any, next: Function) {
         // the handle method self
         const app = ctx.app;
         ctx.res = { message: 'Hello '.concat(ctx.req.name) };
+        next();
     }
 }
 
