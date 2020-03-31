@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import Mali from 'mali';
 import config from 'config';
+import Debug from 'debug';
+const debug = Debug('mikudos:app');
 
 export declare namespace mikudos {
     interface ConfigFunc {
@@ -19,6 +21,7 @@ export class Application extends Mali {
     ) {
         super(path, name, options);
         this.settings = _.merge({}, config);
+        debug('booting mikudos app');
     }
 
     get(name: string) {
@@ -91,6 +94,14 @@ export class Application extends Mali {
                     keyArr = [keyArr.join('.'), methName as string];
                 }
 
+                debug(
+                    'register method: %o.%o with %o before hooks %o after hooks and %o serviceAfter hooks',
+                    name,
+                    key,
+                    (befores || []).length,
+                    (afters || []).length,
+                    (serviceAfters || []).length
+                );
                 this.use(
                     ...keyArr,
                     ...(befores || []),
