@@ -1,6 +1,6 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.1.21",
+    "version": "1.1.22",
     "description": "gRPC microservice framework for fast implementation",
     "main": "lib/index.js",
     "scripts": {
