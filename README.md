@@ -37,7 +37,7 @@ import {
     HookMethod,
     HookService,
     App,
-    Customer
+    Customer,
 } from 'mikudos-node-app';
 /**
  * You can find a systematic description for the use case of middleware at: https://mali.js.org/api/#mali-%E2%87%90-emitter
@@ -88,6 +88,12 @@ const PROTO_PATH = path.resolve(
 );
 
 const app: Application = new Application(PROTO_PATH);
+```
+
+Show Debug info
+
+```shell
+DEBUG=mikudos:* npm start
 ```
 
 # License
