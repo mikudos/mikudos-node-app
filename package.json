@@ -1,6 +1,6 @@
 {
     "name": "mikudos-node-app",
-    "version": "1.1.22",
+    "version": "1.1.23",
     "description": "gRPC microservice framework for fast implementation",
     "main": "lib/index.js",
     "scripts": {
@@ -29,6 +29,7 @@
     "dependencies": {
         "@grpc/proto-loader": "^0.5.3",
         "config": "^3.2.4",
+        "debug": "^4.1.1",
         "js-yaml": "^3.13.1",
         "lodash": "^4.17.15",
         "mali": "^0.19.0",
